@@ -6,9 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class ShoppingListActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var shoppingListViewModel: ShoppingItemViewModel
 
@@ -30,5 +31,8 @@ class ShoppingListActivity : AppCompatActivity() {
         })
         rv.adapter = ShoppingListAdapter(this, shoppingListViewModel)
 
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            shoppingListViewModel.insert(ShoppingItem(name = "Milkk", price = 2.0f, quantity = 1))
+        }
     }
 }

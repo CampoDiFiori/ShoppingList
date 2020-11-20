@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class MainActivity : AppCompatActivity() {
+class ExampleActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView;
     private lateinit var viewAdapter: RecyclerView.Adapter<*>;
