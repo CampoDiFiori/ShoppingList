@@ -7,7 +7,7 @@ import androidx.room.*
 @Database(entities = [ShoppingItem::class], version = 1)
 public abstract class ShoppingDB : RoomDatabase() {
     abstract fun shoppingItemDao(): ShoppingItemDao
-    //singleton
+
     companion object{
         private var instance: ShoppingDB? = null
         fun getDatabase(context: Context): ShoppingDB{
@@ -18,8 +18,8 @@ public abstract class ShoppingDB : RoomDatabase() {
             val inst = Room.databaseBuilder(
                 context.applicationContext,
                 ShoppingDB::class.java,
-                "person_DB"
-            ).allowMainThreadQueries().build() //allowMainThread nierekomendowany
+                "shopping_DB"
+            ).allowMainThreadQueries().build()
             instance = inst
             return inst
         }
@@ -29,7 +29,7 @@ public abstract class ShoppingDB : RoomDatabase() {
 @Entity(tableName = "shopping_item")
 data class ShoppingItem(var name: String, var price: Float, var quantity: Int, var checked: Boolean = false){
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    var id: Long = 1
 }
 
 @Dao
@@ -51,4 +51,7 @@ interface ShoppingItemDao {
 
     @Query("DELETE FROM shopping_item")
     fun deleteAll()
+
+    @Query("SELECT id, name, price, quantity, checked FROM shopping_item where shopping_item.id = :idd")
+    fun getItemById(idd: Long): ShoppingItem?
 }

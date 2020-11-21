@@ -1,5 +1,6 @@
 package com.dudko.shoppinglist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -32,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         rv.adapter = ShoppingListAdapter(this, shoppingListViewModel)
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            shoppingListViewModel.insert(ShoppingItem(name = "Milkk", price = 2.0f, quantity = 1))
+            val intent = Intent(this, EditProductActivity::class.java)
+            startActivity(intent)
         }
     }
 }

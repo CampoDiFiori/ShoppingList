@@ -1,15 +1,16 @@
 package com.dudko.shoppinglist
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class ShoppingListAdapter(val context: Context, val shoppingListViewModel: ShoppingItemViewModel)
+class ShoppingListAdapter(val context: Context, private val shoppingListViewModel: ShoppingItemViewModel)
     : RecyclerView.Adapter<ShoppingListAdapter.ShoppingItemHolder>()
 {
     private var items = emptyList<ShoppingItem>()
@@ -33,7 +34,18 @@ class ShoppingListAdapter(val context: Context, val shoppingListViewModel: Shopp
         checked.isChecked = currentItem.checked
 
         holder.view.setOnClickListener {
-            Toast.makeText(it.context, "Id: ${currentItem.id}", Toast.LENGTH_SHORT).show()
+            println("Id: ${currentItem.id}")
+            val editProductIntent = Intent(context, EditProductActivity::class.java).apply {
+                putExtra("id", currentItem.id)
+                putExtra("name", currentItem.name)
+                putExtra("price", currentItem.price)
+                putExtra("quantity", currentItem.quantity)
+            }
+            startActivity(context, editProductIntent, null)
+        }
+
+        checked.setOnClickListener {
+            shoppingListViewModel.update(currentItem.copy(checked = !currentItem.checked))
         }
     }
 

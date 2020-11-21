@@ -8,6 +8,7 @@ class ShoppingItemViewModel(application: Application) : AndroidViewModel(applica
     private val itemDao: ShoppingItemDao = ShoppingDB.getDatabase(application).shoppingItemDao()
     val allItems: LiveData<List<ShoppingItem>> = itemDao.getAllItems()
 
+    fun getItemById(id: Long) = itemDao.getItemById(id)
     fun insert(item: ShoppingItem) = itemDao.insert(item)
     fun update(item: ShoppingItem) = itemDao.update(item)
     fun delete(item: ShoppingItem) = itemDao.delete(item)
