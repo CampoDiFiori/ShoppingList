@@ -25,6 +25,10 @@ class ShoppingListAdapter(val context: Context, private val shoppingListViewMode
     }
 
     override fun onBindViewHolder(holder: ShoppingItemHolder, position: Int) {
+        val sharedPreferences = context.getSharedPreferences("shopping_options", Context.MODE_PRIVATE)
+        val currencyPln = sharedPreferences.getBoolean("currency_pln", true)
+
+
         val currentItem = items[position]
         val title = holder.view.findViewById<TextView>(R.id.itemName)
         val price = holder.view.findViewById<TextView>(R.id.itemPrice)
@@ -32,7 +36,7 @@ class ShoppingListAdapter(val context: Context, private val shoppingListViewMode
         val deleteButton = holder.view.findViewById<Button>(R.id.deleteProduct)
 
         title.text = "${currentItem.name} (${currentItem.quantity})"
-        price.text = currentItem.price.toString()
+        price.text = "${currentItem.price.toString()} ${if (currencyPln) {"PLN"} else {"EUR"}}"
         checked.isChecked = currentItem.checked
 
         holder.view.setOnClickListener {

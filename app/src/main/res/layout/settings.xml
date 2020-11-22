@@ -27,20 +27,20 @@
                 android:id="@+id/themeRadioGroupTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Theme"
+                android:text="@string/theme"
                 android:textSize="18sp" />
             <RadioButton
                 android:id="@+id/lightTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Light"
+                android:text="@string/light"
                 android:onClick="onThemeChange"/>
 
             <RadioButton
                 android:id="@+id/darkTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dark"
+                android:text="@string/dark"
                 android:onClick="onThemeChange"/>
         </RadioGroup>
         <RadioGroup
@@ -53,22 +53,22 @@
             android:id="@+id/textSizeRadioGroupTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text Size in Your List"
+            android:text="@string/currency"
             android:textSize="18sp" />
         <RadioButton
-            android:id="@+id/biggerText"
+            android:id="@+id/pln"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bigger"
-            android:onClick="onTextSizeChange"
+            android:text="@string/PLN"
+            android:onClick="onCurrencyChange"
             />
 
         <RadioButton
-            android:id="@+id/smallerText"
+            android:id="@+id/eur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Smaller"
-            android:onClick="onTextSizeChange"/>
+            android:text="@string/EUR"
+            android:onClick="onCurrencyChange"/>
     </RadioGroup>
         <Button
             android:id="@+id/settingsOk"

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class ProductListActivity : AppCompatActivity() {
+class ProductListActivity : BaseActivity() {
 
     private lateinit var shoppingListViewModel: ShoppingItemViewModel
 

@@ -7,17 +7,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val sharedPreferences = getSharedPreferences("shopping_options", Context.MODE_PRIVATE)
-        when (sharedPreferences.getBoolean("dark_theme", false)) {
-            true -> {
-                setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar)
-            }
-            false -> {
-                setTheme(R.style.ThemeOverlay_AppCompat_Light)
-            }
-        }
+        setTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
@@ -30,5 +22,9 @@ class MainActivity : AppCompatActivity() {
     fun onYourListClick(view: View) {
         val productListActivityIntent = Intent(this, ProductListActivity::class.java)
         startActivity(productListActivityIntent)
+    }
+
+    fun setTheme() {
+
     }
 }

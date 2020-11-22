@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
-class EditProductActivity: AppCompatActivity() {
+class EditProductActivity: BaseActivity() {
 
     private lateinit var shoppingListViewModel: ShoppingItemViewModel
     private var editedProductId: Long? = null // if it's null, we're adding a new product

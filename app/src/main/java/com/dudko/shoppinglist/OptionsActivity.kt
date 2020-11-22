@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import androidx.appcompat.app.AppCompatActivity
 
-class OptionsActivity : AppCompatActivity() {
+class OptionsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
@@ -15,7 +14,7 @@ class OptionsActivity : AppCompatActivity() {
         this.title = "Settings"
         val sharedPreferences = getSharedPreferences("shopping_options", Context.MODE_PRIVATE)
         val darkTheme = sharedPreferences.getBoolean("dark_theme", false)
-        val biggerTextSize = sharedPreferences.getBoolean("bigger_text_size", false)
+        val biggerTextSize = sharedPreferences.getBoolean("currency_pln", true)
 
         val themeGroup = findViewById<RadioGroup>(R.id.themeRadioGroup)
         val textSizeGroup = findViewById<RadioGroup>(R.id.textSizeRadioGroup)
@@ -31,10 +30,10 @@ class OptionsActivity : AppCompatActivity() {
 
         when (biggerTextSize) {
             true -> {
-                textSizeGroup.check(R.id.biggerText)
+                textSizeGroup.check(R.id.pln)
             }
             false -> {
-                textSizeGroup.check(R.id.smallerText)
+                textSizeGroup.check(R.id.eur)
             }
         }
     }
@@ -66,20 +65,20 @@ class OptionsActivity : AppCompatActivity() {
         }
     }
 
-    fun onTextSizeChange(view: View) {
+    fun onCurrencyChange(view: View) {
         val sharedPreferences = getSharedPreferences("shopping_options", Context.MODE_PRIVATE)
         val spEditor = sharedPreferences.edit()
         if (view is RadioButton) {
             val checked = view.isChecked
             when (view.getId()) {
-                R.id.biggerText -> {
+                R.id.pln -> {
                     if (checked) {
-                        spEditor.putBoolean("bigger_text_size", true)
+                        spEditor.putBoolean("currency_pln", true)
                     }
                 }
-                R.id.smallerText -> {
+                R.id.eur -> {
                     if (checked) {
-                        spEditor.putBoolean("bigger_text_size", false)
+                        spEditor.putBoolean("currency_pln", false)
                     }
                 }
             }
