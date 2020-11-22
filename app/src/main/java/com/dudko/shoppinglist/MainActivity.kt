@@ -1,41 +1,30 @@
 package com.dudko.shoppinglist
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var recyclerView: RecyclerView;
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>;
-    private lateinit var viewManager: RecyclerView.LayoutManager;
-
-
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = MyAdapter(arrayOf(
-            "asd",
-            "text",
-            "meh",
-            "asdasd",
-            "eloelo",
-            "maybe",
-            "yo",
-            "bitch",
-            "ych",
-            "lol?"
-        ))
-
-        recyclerView = findViewById<RecyclerView>(R.id.shopping_list).apply {
-            setHasFixedSize(false)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
     }
 
+    fun onSettingsClick(view: View) {
+        val optionsActivityIntent = Intent(this, OptionsActivity::class.java)
+        startActivity(optionsActivityIntent)
+    }
+
+    fun onYourListClick(view: View) {
+        val productListActivityIntent = Intent(this, ProductListActivity::class.java)
+        startActivity(productListActivityIntent)
+    }
+
+    fun setTheme() {
+
+    }
 }
