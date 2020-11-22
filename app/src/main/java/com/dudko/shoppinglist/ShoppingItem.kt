@@ -18,7 +18,7 @@ public abstract class ShoppingDB : RoomDatabase() {
             val inst = Room.databaseBuilder(
                 context.applicationContext,
                 ShoppingDB::class.java,
-                "shopping_DB"
+                "shopping_db"
             ).allowMainThreadQueries().build()
             instance = inst
             return inst
@@ -27,9 +27,9 @@ public abstract class ShoppingDB : RoomDatabase() {
 }
 
 @Entity(tableName = "shopping_item")
-data class ShoppingItem(var name: String, var price: Float, var quantity: Int, var checked: Boolean = false){
+data class ShoppingItem(var name: String, var price: Float, var quantity: Int, var checked: Boolean = false) {
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 1
+    var id: Long = 0
 }
 
 @Dao

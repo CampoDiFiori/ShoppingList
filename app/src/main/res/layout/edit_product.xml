@@ -67,7 +67,6 @@
                 android:layout_margin="10dp"
                 android:onClick="onCancelClick"
                 android:text="@string/cancel"
-                android:background="@android:color/darker_gray"
             />
             <Button
                 android:id="@+id/acceptButton"
@@ -77,6 +76,7 @@
                 android:layout_margin="10dp"
                 android:onClick="onOKClick"
                 android:text="@string/ok"
+
             />
     </LinearLayout>
     </LinearLayout>

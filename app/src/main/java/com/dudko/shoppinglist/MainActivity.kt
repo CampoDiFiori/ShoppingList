@@ -1,40 +1,34 @@
 package com.dudko.shoppinglist
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var shoppingListViewModel: ShoppingItemViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
-        val rv = findViewById<RecyclerView>(R.id.shopping_list)
-        rv.layoutManager = LinearLayoutManager(this)
-
-        shoppingListViewModel = ViewModelProvider(this,
-                ViewModelProvider.AndroidViewModelFactory
-                        .getInstance(this.application))
-                .get(ShoppingItemViewModel::class.java)
-        shoppingListViewModel.allItems.observe(this, Observer { people ->
-            people?.let {
-                (rv.adapter as ShoppingListAdapter).setShoppingList(it)
+        val sharedPreferences = getSharedPreferences("shopping_options", Context.MODE_PRIVATE)
+        when (sharedPreferences.getBoolean("dark_theme", false)) {
+            true -> {
+                setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar)
             }
-        })
-        rv.adapter = ShoppingListAdapter(this, shoppingListViewModel)
-
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val intent = Intent(this, EditProductActivity::class.java)
-            startActivity(intent)
+            false -> {
+                setTheme(R.style.ThemeOverlay_AppCompat_Light)
+            }
         }
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    fun onSettingsClick(view: View) {
+        val optionsActivityIntent = Intent(this, OptionsActivity::class.java)
+        startActivity(optionsActivityIntent)
+    }
+
+    fun onYourListClick(view: View) {
+        val productListActivityIntent = Intent(this, ProductListActivity::class.java)
+        startActivity(productListActivityIntent)
     }
 }

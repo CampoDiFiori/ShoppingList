@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -28,6 +29,7 @@ class ShoppingListAdapter(val context: Context, private val shoppingListViewMode
         val title = holder.view.findViewById<TextView>(R.id.itemName)
         val price = holder.view.findViewById<TextView>(R.id.itemPrice)
         val checked = holder.view.findViewById<CheckBox>(R.id.checked)
+        val deleteButton = holder.view.findViewById<Button>(R.id.deleteProduct)
 
         title.text = "${currentItem.name} (${currentItem.quantity})"
         price.text = currentItem.price.toString()
@@ -45,7 +47,12 @@ class ShoppingListAdapter(val context: Context, private val shoppingListViewMode
         }
 
         checked.setOnClickListener {
-            shoppingListViewModel.update(currentItem.copy(checked = !currentItem.checked))
+            currentItem.checked = !currentItem.checked
+            shoppingListViewModel.update(currentItem)
+        }
+
+        deleteButton.setOnClickListener {
+            shoppingListViewModel.delete(currentItem)
         }
     }
 
