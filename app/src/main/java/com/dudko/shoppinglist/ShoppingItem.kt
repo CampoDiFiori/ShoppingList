@@ -54,4 +54,7 @@ interface ShoppingItemDao {
 
     @Query("SELECT id, name, price, quantity, checked FROM shopping_item where shopping_item.id = :idd")
     fun getItemById(idd: Long): ShoppingItem?
+
+    @Query("SELECT id, name, price, quantity, checked FROM shopping_item ORDER BY id DESC LIMIT 1")
+    fun getLastItem(): ShoppingItem?
 }
