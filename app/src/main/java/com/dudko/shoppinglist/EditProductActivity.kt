@@ -1,14 +1,11 @@
 package com.dudko.shoppinglist
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 class EditProductActivity: BaseActivity() {
@@ -68,8 +65,9 @@ class EditProductActivity: BaseActivity() {
         when (editedProductId) {
             null -> {
                 val newItem = ShoppingItem(name = name, price = price, quantity = quantity, checked = false)
-                println(newItem)
                 shoppingListViewModel.insert(newItem)
+                val newItemWithId = shoppingListViewModel.getLastItem()
+                onItemAdd(newItemWithId!!)
             }
             else -> {
                 val editedProduct = shoppingListViewModel.getItemById(editedProductId!!)
@@ -89,6 +87,27 @@ class EditProductActivity: BaseActivity() {
 
     fun onCancelClick(view: View) {
         finish()
+    }
+
+    private fun onItemAdd(item: ShoppingItem) {
+        val launchEditItemIntent = Intent(this, EditProductActivity::class.java).apply {
+            putExtra("id", item.id)
+            putExtra("name", item.name)
+            putExtra("price", item.price)
+            putExtra("quantity", item.quantity)
+        }
+        val pendingIntent = PendingIntent.getActivity(
+                this,
+                1,
+                launchEditItemIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val broadcastIntent = Intent("com.dudko.ITEM_ADDED").apply {
+            this.putExtra("edit_item_activity", pendingIntent)
+            putExtra("notification_message", "${item.name} (${item.quantity})")
+        }
+        sendBroadcast(broadcastIntent, "com.dudko.ITEM_ADDED_PERMISSION")
     }
 
 }
